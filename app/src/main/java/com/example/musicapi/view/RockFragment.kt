@@ -10,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.musicapi.R
 import com.example.musicapi.adapter.MusicAdapter
 import com.example.musicapi.adapter.MusicItemClick
 import com.example.musicapi.databinding.FragmentRockBinding
@@ -27,7 +30,6 @@ class RockFragment : Fragment(), RockContracts.RockViewContract {
     }
 
     private val rockPresenter: RockContracts.RockPresenterContract by lazy {
-
         RockPresenter(
             connectivityManager = getSystemService(
                 requireContext(),
@@ -36,13 +38,12 @@ class RockFragment : Fragment(), RockContracts.RockViewContract {
         )
     }
 
-    /*private val compositeDisposable by lazy {
-        CompositeDisposable()
-    }*/
-
     private val rockAdapter by lazy {
         MusicAdapter(object : MusicItemClick {
             override fun onSongClicked(song: Result) {
+                findNavController().navigate(R.id.action_rockFragment_to_detailsFragment, bundleOf(
+                    Pair(DetailsFragment.DATA_URL, song.previewUrl)
+                ))
                 Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", "${song.trackName}")
             }
         })

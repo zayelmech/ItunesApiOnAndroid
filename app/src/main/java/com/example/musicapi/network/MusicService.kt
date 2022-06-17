@@ -1,8 +1,4 @@
 package com.example.musicapi.network
-
-import com.example.musicapi.model.Classic
-import com.example.musicapi.model.Pop
-import com.example.musicapi.model.Rock
 import com.example.musicapi.model.Songs
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -15,10 +11,10 @@ interface MusicService {
     // fun getAllRockSongs() : Single<List<Rock>>
 
     @GET(CLASSIC_PATH)
-    fun getAllClassicSongs() : Single<List<Classic>>
+    fun getAllClassicSongs() : Single<Songs>
 
     @GET(POP_PATH)
-    fun getAllPopSongs() : Single<List<Pop>>
+    fun getAllPopSongs() : Single<Songs>
 
     @GET(SINGLE_SONG)
     fun getRockSongByName(
@@ -29,10 +25,8 @@ companion object{
 
     const val BASE_URL = "https://itunes.apple.com/"
     private const val ROCK_PATH = "search?term=rock&amp;media=music&amp;entity=song&amp;limit=5"
-    //const val BASE_URL = "https://api.punkapi.com/v2"
-    //private const val ROCK_PATH = "/beers"
-    private const val CLASSIC_PATH = "/search?term=classick&amp;media=music&amp;entity=song&amp;limit=50"
-    private const val POP_PATH = "/search?term=pop&amp;media=music&amp;entity=song&amp;limit=50"
+    private const val CLASSIC_PATH = "search?term=classick&amp;media=music&amp;entity=song&amp;limit=50"
+    private const val POP_PATH = "search?term=pop&amp;media=music&amp;entity=song&amp;limit=50"
     private const val SINGLE_SONG = "search?term={songName}&limit=25. "
 }
 }

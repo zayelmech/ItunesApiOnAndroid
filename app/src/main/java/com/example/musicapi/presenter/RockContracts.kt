@@ -1,6 +1,5 @@
 package com.example.musicapi.presenter
 
-import com.example.musicapi.model.Rock
 import com.example.musicapi.model.Songs
 
 interface RockContracts {

@@ -5,9 +5,6 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.*
 import android.net.NetworkRequest
-import com.example.musicapi.model.Classic
-import com.example.musicapi.model.Pop
-import com.example.musicapi.model.Rock
 import com.example.musicapi.model.Songs
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
@@ -17,8 +14,8 @@ interface MusicRepository {
     fun checkNetworkAvailability()
     //fun getAllRockSongs(): Single<List<Rock>>
     fun getAllRockSongs(): Single<Songs>
-    fun getAllClassicSongs(): Single<List<Classic>>
-    fun getAllPopSongs(): Single<List<Pop>>
+    fun getAllClassicSongs(): Single<Songs>
+    fun getAllPopSongs(): Single<Songs>
     fun getRockSongByName(songName: String): Single<Songs>
 
 }
@@ -62,10 +59,10 @@ class MusicRepositoryImpl(
         Service.musicService.getAllRockSongs()
 
 
-    override fun getAllClassicSongs(): Single<List<Classic>> =
+    override fun getAllClassicSongs(): Single<Songs> =
         Service.musicService.getAllClassicSongs()
 
-    override fun getAllPopSongs(): Single<List<Pop>> =
+    override fun getAllPopSongs(): Single<Songs> =
         Service.musicService.getAllPopSongs()
 
 
