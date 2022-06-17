@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
     android:orientation="vertical"
-    android:layout_gravity="center"
+    android:background="@color/silver"
+    android:backgroundTintMode="src_over"
     tools:context=".view.DetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+        android:text="PLAYING FROM ITUNES"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
+        android:padding="20dp"
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/trackName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textSize="20sp"
+        android:text="Track Name"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/artistName"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="Artist Name"
+        android:textColor="@color/black" />
 
 
     <SeekBar
@@ -39,33 +48,70 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/progressTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0:01"
+            android:textColor="@color/black" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/durationTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2:00"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <ImageButton
+            android:id="@+id/replayBtn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:minWidth="80dp"
+            android:minHeight="80dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/vector_replay" />
 
         <ImageButton
             android:id="@+id/playBtn"
-            android:layout_weight="1"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTintMode="screen"
-            android:minHeight="100dp"
+            android:layout_weight="2"
+            android:background="@null"
             android:minWidth="100dp"
+            android:minHeight="100dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/vector_play" />
 
         <ImageButton
-            android:layout_weight="1"
             android:id="@+id/pauseBtn"
-            android:minHeight="100dp"
-            android:minWidth="100dp"
-
-            android:backgroundTintMode="screen"
-            android:layout_width="50dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/vector_pause"
-            />
-
+            android:layout_weight="1"
+            android:background="@null"
+            android:minWidth="80dp"
+            android:minHeight="80dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/vector_fordward" />
 
     </LinearLayout>
 

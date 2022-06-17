@@ -54,8 +54,8 @@ class MusicViewHolder(
 
     fun bind(song: Result, onSongItemClick: MusicItemClick) {
         binding.artistName.text = song.artistName
-        binding.collectionName.text = song.collectionName
-        binding.trackPrice.text = song.trackPrice.toString()
+        binding.collectionName.text = song.trackName
+        binding.trackPrice.text = "$ ${song.trackPrice.toString()} USD"
 
         itemView.setOnClickListener{
             onSongItemClick.onSongClicked(song)

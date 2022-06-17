@@ -16,12 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicapi.R
 import com.example.musicapi.adapter.MusicAdapter
 import com.example.musicapi.adapter.MusicItemClick
-import com.example.musicapi.databinding.FragmentRockBinding
 import com.example.musicapi.model.Result
 import com.example.musicapi.model.Songs
 import com.example.musicapi.presenter.RockContracts
 import com.example.musicapi.presenter.RockPresenter
-
+import com.example.musicapi.databinding.FragmentRockBinding
+import com.example.musicapi.model.SongInfo
 
 class RockFragment : Fragment(), RockContracts.RockViewContract {
 
@@ -41,8 +41,9 @@ class RockFragment : Fragment(), RockContracts.RockViewContract {
     private val rockAdapter by lazy {
         MusicAdapter(object : MusicItemClick {
             override fun onSongClicked(song: Result) {
+                val songInfo = SongInfo(song.artistName,song.artworkUrl100,song.trackName,song.previewUrl)
                 findNavController().navigate(R.id.action_rockFragment_to_detailsFragment, bundleOf(
-                    Pair(DetailsFragment.DATA_URL, song.previewUrl)
+                    Pair(DetailsFragment.DATA_CLASS, songInfo)
                 ))
                 Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", "${song.trackName}")
             }
@@ -90,10 +91,6 @@ class RockFragment : Fragment(), RockContracts.RockViewContract {
     override fun connectionChecked() {
         // NO-OP
    }
-
-//    override fun allSongsLoadedSuccess(songs: List<Rock>) {
-//        rockAdapter.updateSongs(songs)
-//    }
         override fun allSongsLoadedSuccess(songs: Songs) {
     Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", songs.resultCount?.toString() +  " ---NUMBER")
     rockAdapter.updateSongs(songs)
