@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MusicAPI</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="item_one">ROCK</string>
+    <string name="item_two">CLASSIC</string>
+    <string name="item_three">POP</string>
+</resources>

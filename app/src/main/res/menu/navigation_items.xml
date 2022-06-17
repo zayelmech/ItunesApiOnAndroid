@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/rockFragment"
+        android:icon="@drawable/vector_rock"
+        android:title="@string/item_one" />
+    <item
+        android:id="@+id/classicFragment"
+        android:icon="@drawable/vector_classic"
+        android:title="@string/item_two" />
+    <item
+        android:id="@+id/popFragment"
+        android:icon="@drawable/vector_pop"
+        android:title="@string/item_three" />
+
+</menu>
