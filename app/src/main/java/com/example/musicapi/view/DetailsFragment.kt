@@ -107,7 +107,8 @@ class DetailsFragment : Fragment() {
                 }
             }
         }, 0)
-
+        flagState = true
+        startSong()
     }
 
     private fun startSong() {
