@@ -62,6 +62,12 @@ class RockFragment : Fragment(), RockContracts.RockViewContract {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rockAdapter
         }
+        binding.root.setOnRefreshListener {
+
+            rockPresenter.getAllSongs()
+            Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", "Updated")
+        }
+
         rockPresenter.initializePresenter(this)
         rockPresenter.registerForNetworkState()
         rockPresenter.getAllSongs()
@@ -71,6 +77,7 @@ class RockFragment : Fragment(), RockContracts.RockViewContract {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.root.isRefreshing = false
         rockPresenter.destroyPresenter()
     }
 
@@ -94,7 +101,9 @@ class RockFragment : Fragment(), RockContracts.RockViewContract {
         override fun allSongsLoadedSuccess(songs: Songs) {
     Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", songs.resultCount?.toString() +  " ---NUMBER")
     rockAdapter.updateSongs(songs)
-    }
+            binding.root.isRefreshing = false
+
+        }
 
     override fun onError(error: Throwable) {
         Toast.makeText(requireContext(),"ERROR!! 404" ,Toast.LENGTH_LONG).show()

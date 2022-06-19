@@ -76,7 +76,8 @@ class RockPresenter(
      * */
     override fun destroyPresenter() {
         rockViewContract = null
-        compositeDisposable.dispose()
+        //compositeDisposable.dispose()
+        compositeDisposable.clear()
 
     }
 }

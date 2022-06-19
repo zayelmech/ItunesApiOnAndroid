@@ -16,18 +16,13 @@ class MusicAdapter(
 ) : RecyclerView.Adapter<MusicViewHolder>() {
 
     fun updateSongs(newSongs : Songs){
+        songsDataSet.clear()
         newSongs.results?.forEach{
-
            it?.let { it1 -> songsDataSet.add(it1) }
-
             Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", it?.trackName.toString())
         }
 
         Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", newSongs.resultCount.toString())
-        songsDataSet.forEach{
-            Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", it.trackName.toString())
-        }
-
         //songsDataSet.addAll(newSongs)
         notifyDataSetChanged()
     }

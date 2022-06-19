@@ -6,7 +6,6 @@ interface RockContracts {
     interface RockViewContract {
         fun loadingState()
         fun connectionChecked()
-        //fun allSongsLoadedSuccess(songs: List<Rock>)
         fun allSongsLoadedSuccess(songs: Songs)
         fun onError(error: Throwable)
     }

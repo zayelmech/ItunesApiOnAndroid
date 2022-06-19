@@ -9,5 +9,4 @@ data class SongInfo (
     val trackName: String?,
     val previewUrl: String?
 
-
     ): Serializable
