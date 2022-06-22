@@ -1,34 +1,49 @@
 package com.example.musicapi.view
 
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicapi.R
+import com.example.musicapi.adapter.MusicAdapter
+import com.example.musicapi.adapter.MusicItemClick
+import com.example.musicapi.database.SongsViewModel
+import com.example.musicapi.databinding.FragmentPopBinding
+import com.example.musicapi.model.Result
+import com.example.musicapi.model.Songs
+import com.example.musicapi.presenter.ClassicContracts
+import com.example.musicapi.presenter.ClassicPresenter
+import com.example.musicapi.presenter.PopContracts
+import com.example.musicapi.presenter.PopPresenter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PopFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class PopFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class PopFragment : Fragment(),PopContracts.PopViewContract {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val binding by lazy {
+        FragmentPopBinding.inflate(layoutInflater)
+    }
+
+    private val popPresenter: PopContracts.PopPresenterContract by lazy {
+       PopPresenter(
+            connectivityManager = ContextCompat.getSystemService(
+                requireContext(),
+                ConnectivityManager::class.java
+            )
+        )
+    }
+    private val listAdapter by lazy {
+        MusicAdapter(object : MusicItemClick {
+            override fun onSongClicked(song: Result) {
+
+                Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", "${song.trackName}")
+            }
+        })
     }
 
     override fun onCreateView(
@@ -38,26 +53,42 @@ class PopFragment : Fragment() {
         // Inflate the layout for this fragment
         Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", "onCreateView")
 
-        return inflater.inflate(R.layout.fragment_pop, container, false)
+        binding.recyclerviewPop.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = listAdapter
+        }
+
+        popPresenter.initializePresenter(this)
+        popPresenter.registerForNetworkState()
+        popPresenter.getAllSongs()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PopFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PopFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        popPresenter.destroyPresenter()
     }
+
+    override fun loadingState() {
+        Toast.makeText(requireContext(), "LOADING ...", Toast.LENGTH_LONG).show()
+
+    }
+
+    override fun connectionChecked(networkState: Boolean) {
+        Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", "${networkState.toString()} ---HERE")
+    }
+
+    override fun allSongsLoadedSuccess(songs: Songs) {
+        Toast.makeText(requireContext(), "LOADED", Toast.LENGTH_LONG).show()
+        listAdapter.updateSongs(songs)
+
+    }
+
+    override fun onError(error: Throwable) {
+        Toast.makeText(requireContext(), "ERROR!! 404", Toast.LENGTH_LONG).show()
+    }
+
+
 }

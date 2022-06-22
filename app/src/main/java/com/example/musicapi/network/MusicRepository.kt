@@ -23,7 +23,7 @@ class MusicRepositoryImpl(
     private val connectivityManager: ConnectivityManager?,
     private val networkRequest: NetworkRequest =NetworkRequest.Builder()
         .addCapability(NET_CAPABILITY_INTERNET)
-        //.addTransportType(TRANSPORT_WIFI)
+        .addTransportType(TRANSPORT_WIFI)
         .addTransportType(TRANSPORT_CELLULAR)
         .build()
 

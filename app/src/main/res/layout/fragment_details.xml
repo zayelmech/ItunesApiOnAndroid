@@ -88,6 +88,7 @@
             android:background="@null"
             android:minWidth="80dp"
             android:minHeight="80dp"
+            android:visibility="invisible"
             android:scaleType="fitCenter"
             android:src="@drawable/vector_replay" />
 
@@ -110,6 +111,8 @@
             android:background="@null"
             android:minWidth="80dp"
             android:minHeight="80dp"
+            android:visibility="invisible"
+
             android:scaleType="fitCenter"
             android:src="@drawable/vector_fordward" />
 

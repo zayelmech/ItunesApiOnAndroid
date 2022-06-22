@@ -12,8 +12,8 @@
 - MVP Architectural pattern (need to review again)
 - Implement SwipeToRefresh
 - Synchronized Local Database
-- As a user I must be able to view the list of all Artist in all three tabs. (2 tabs now)
-- Refresh data for all 3 API ( is working on 1 Fragment )
+- As a user I must be able to view the list of all Artist in all three tabs. 
+- Refresh data for all 3 API ( is working on Rock Fragment )
 
 # GOALS
 - Javadoc must be create
