@@ -12,7 +12,6 @@ import io.reactivex.subjects.BehaviorSubject
 interface MusicRepository {
     val networkState : BehaviorSubject<Boolean>
     fun checkNetworkAvailability()
-    //fun getAllRockSongs(): Single<List<Rock>>
     fun getAllRockSongs(): Single<Songs>
     fun getAllClassicSongs(): Single<Songs>
     fun getAllPopSongs(): Single<Songs>
@@ -24,7 +23,7 @@ class MusicRepositoryImpl(
     private val connectivityManager: ConnectivityManager?,
     private val networkRequest: NetworkRequest =NetworkRequest.Builder()
         .addCapability(NET_CAPABILITY_INTERNET)
-        .addTransportType(TRANSPORT_WIFI)
+        //.addTransportType(TRANSPORT_WIFI)
         .addTransportType(TRANSPORT_CELLULAR)
         .build()
 
@@ -33,6 +32,7 @@ class MusicRepositoryImpl(
     override  val networkState : BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     override fun checkNetworkAvailability() {
+
       connectivityManager?.requestNetwork(networkRequest,object :
       ConnectivityManager.NetworkCallback(){
           override fun onAvailable(network: Network) {
@@ -43,7 +43,6 @@ class MusicRepositoryImpl(
           override fun onUnavailable() {
               super.onUnavailable()
               networkState.onNext(false)
-
           }
 
           override fun onLost(network: Network) {
@@ -53,9 +52,7 @@ class MusicRepositoryImpl(
       })
     }
 
-
-  //  override fun getAllRockSongs(): Single<List<Rock>> =
-  override fun getAllRockSongs(): Single<Songs> =
+    override fun getAllRockSongs(): Single<Songs> =
         Service.musicService.getAllRockSongs()
 
 

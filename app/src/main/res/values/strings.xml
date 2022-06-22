@@ -5,4 +5,5 @@
     <string name="item_one">ROCK</string>
     <string name="item_two">CLASSIC</string>
     <string name="item_three">POP</string>
+    <string name="add_song">Add Song</string>
 </resources>

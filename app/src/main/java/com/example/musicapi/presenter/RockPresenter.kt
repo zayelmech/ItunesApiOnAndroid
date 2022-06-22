@@ -1,7 +1,6 @@
 package com.example.musicapi.presenter
 
 import android.net.ConnectivityManager
-import android.util.Log
 import com.example.musicapi.network.MusicRepository
 import com.example.musicapi.network.MusicRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,6 +29,7 @@ class RockPresenter(
 
     override fun registerForNetworkState() {
         rockRepository.checkNetworkAvailability()
+       // rockViewContract?.connectionChecked(rockRepository.networkState)
     }
 
     /**
@@ -43,10 +43,13 @@ class RockPresenter(
      * */
 
     override fun getAllSongs() {
+        compositeDisposable.clear()
         rockViewContract?.loadingState()
 
         rockRepository.networkState
             .subscribe { netState ->
+
+                rockViewContract?.connectionChecked(netState)
                 if (netState) {
                     rockRepository.getAllRockSongs()
                         .subscribeOn(Schedulers.io())
@@ -54,7 +57,6 @@ class RockPresenter(
                         .subscribe(
                             {
                                 //Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", it.results.toString())
-
                                 //here you are in the main thread  updating using the reference for the contract
                                 rockViewContract?.allSongsLoadedSuccess(it)
                             },

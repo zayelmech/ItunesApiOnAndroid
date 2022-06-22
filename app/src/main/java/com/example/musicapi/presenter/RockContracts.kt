@@ -5,7 +5,7 @@ import com.example.musicapi.model.Songs
 interface RockContracts {
     interface RockViewContract {
         fun loadingState()
-        fun connectionChecked()
+       fun connectionChecked(networkState : Boolean)
         fun allSongsLoadedSuccess(songs: Songs)
         fun onError(error: Throwable)
     }

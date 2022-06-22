@@ -5,24 +5,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.musicapi.database.SongsEntity
 import com.example.musicapi.databinding.SongItemBinding
 import com.example.musicapi.model.Result
 import com.example.musicapi.model.Songs
 
-class MusicAdapter(
 
+class MusicAdapter(
     private val onSongItemClick : MusicItemClick,
-    private val songsDataSet: MutableList<Result> = mutableListOf()
+    private val songsDataSet : MutableList<Result> = mutableListOf(),
 ) : RecyclerView.Adapter<MusicViewHolder>() {
 
     fun updateSongs(newSongs : Songs){
         songsDataSet.clear()
         newSongs.results?.forEach{
-           it?.let { it1 -> songsDataSet.add(it1) }
-            Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", it?.trackName.toString())
+           it?.let { it1 ->
+               songsDataSet.add(it1)
+           }
+           // Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", it?.trackName.toString())
         }
 
-        Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", newSongs.resultCount.toString())
+        //Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", newSongs.resultCount.toString())
         //songsDataSet.addAll(newSongs)
         notifyDataSetChanged()
     }
@@ -40,14 +43,40 @@ class MusicAdapter(
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) =
         holder.bind(songsDataSet[position],onSongItemClick)
 
-    override fun getItemCount(): Int = songsDataSet.size
+
+    override fun getItemCount(): Int =
+        songsDataSet.size
+
+    fun setLocalData(song: List<SongsEntity>) {
+        songsDataSet.clear()
+
+        song.forEach{
+            it.let { it1 ->
+                val newSong = Result(
+                    artistName = it1.artistName,
+                    artworkUrl100 = it1.artworkUrl100,
+                    artworkUrl60 = it1.artworkUrl60,
+                    trackId = it1.trackId,
+                    trackName = it1.trackName,
+                    previewUrl = it1.previewUrl,
+                    trackPrice = it1.trackPrice,
+                )
+                songsDataSet.add(newSong)
+            }
+            // Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", it?.trackName.toString())
+        }
+        //Log.d("CLASS::${javaClass.simpleName} MESSAGE ->", newSongs.resultCount.toString())
+        //songsDataSet.addAll(newSongs)
+        notifyDataSetChanged()
+    }
 }
 
 class MusicViewHolder(
     private val binding: SongItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(song: Result, onSongItemClick: MusicItemClick) {
+    fun bind(song: Result, onSongItemClick: MusicItemClick ) {
+
         binding.artistName.text = song.artistName
         binding.collectionName.text = song.trackName
         binding.trackPrice.text = "$ ${song.trackPrice.toString()} USD"
