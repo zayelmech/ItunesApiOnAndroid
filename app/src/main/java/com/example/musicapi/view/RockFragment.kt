@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicapi.R
 import com.example.musicapi.adapter.MusicAdapter
 import com.example.musicapi.adapter.MusicItemClick
-import com.example.musicapi.database.SongsAdapter
 import com.example.musicapi.database.SongsEntity
 import com.example.musicapi.database.SongsViewModel
 import com.example.musicapi.model.Result
