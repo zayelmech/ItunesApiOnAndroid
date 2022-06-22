@@ -3,30 +3,46 @@ import com.example.musicapi.model.Songs
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MusicService {
 
-    @GET(ROCK_PATH)
-    fun getAllRockSongs() : Single<Songs>
+    @GET(SINGLE_SONG)
+    fun getAllRockSongs(
+        @Query("term") term: String = "rock",
+        @Query("amp;media") media: String = "music",
+        @Query("amp;entity") entity: String = "song",
+        @Query("amp;limit") limit: Int = 50
+    ) : Single<Songs>
     // fun getAllRockSongs() : Single<List<Rock>>
 
-    @GET(CLASSIC_PATH)
-    fun getAllClassicSongs() : Single<Songs>
+    @GET(SINGLE_SONG)
+    fun getAllClassicSongs(
+        @Query("term") term: String = "classick",
+        @Query("amp;media") media: String = "music",
+        @Query("amp;entity") entity: String = "song",
+        @Query("amp;limit") limit: Int = 50
+    ) : Single<Songs>
 
-    @GET(POP_PATH)
-    fun getAllPopSongs() : Single<Songs>
+    @GET(SINGLE_SONG)
+    fun getAllPopSongs(
+        @Query("term") term: String = "pop",
+        @Query("amp;media") media: String = "music",
+        @Query("amp;entity") entity: String = "song",
+        @Query("amp;limit") limit: Int = 50
+    ) : Single<Songs>
 
     @GET(SINGLE_SONG)
     fun getRockSongByName(
-        @Path("songName") songName: String
+        @Query("songName") songName: String,
+        @Query("limit") limit: Int = 25
     ) : Single<Songs>
 
 companion object{
 
     const val BASE_URL = "https://itunes.apple.com/"
-    private const val ROCK_PATH = "search?term=rock&amp;media=music&amp;entity=song&amp;limit=5"
-    private const val CLASSIC_PATH = "search?term=classick&amp;media=music&amp;entity=song&amp;limit=50"
-    private const val POP_PATH = "search?term=pop&amp;media=music&amp;entity=song&amp;limit=50"
-    private const val SINGLE_SONG = "search?term={songName}&limit=25. "
+
+    // HERE INSTEAD OF HAVING THE WHOLE PATH WITH QUERIES WE NEED TO USE @Query from retrofit
+    private const val SINGLE_SONG = "search"
 }
 }
